@@ -29,5 +29,10 @@ namespace Prometheus.Proletarians.WpfCore
         {
             _mainFrame.Navigate(new InvationProfiles());
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            _mainFrame.Navigate(new Profiles());
+        }
     }
 }

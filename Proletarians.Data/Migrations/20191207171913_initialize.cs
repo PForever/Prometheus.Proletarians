@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Proletarians.Data.Migrations
 {
-    public partial class Initialize : Migration
+    public partial class initialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     From = table.Column<int>(nullable: false),
                     To = table.Column<int>(nullable: false)
                 },
@@ -26,7 +26,7 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     Discription = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -52,7 +52,7 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    FirstName = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
                     MiddleName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Alias = table.Column<string>(nullable: true),
@@ -92,7 +92,7 @@ namespace Proletarians.Data.Migrations
                         column: x => x.Acquaintance_PeriodId,
                         principalTable: "Periods",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Profiles_AgeCategorys_AgeCategoryId",
                         column: x => x.AgeCategoryId,
@@ -106,7 +106,7 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    EventId = table.Column<Guid>(nullable: false)
+                    EventId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -118,8 +118,8 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    EventId = table.Column<Guid>(nullable: false),
-                    TargetId = table.Column<Guid>(nullable: false)
+                    EventId = table.Column<Guid>(nullable: true),
+                    TargetId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,9 +131,9 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    PersonId = table.Column<Guid>(nullable: false),
+                    PersonId = table.Column<Guid>(nullable: true),
                     Round = table.Column<int>(nullable: false),
-                    InvitationId = table.Column<Guid>(nullable: false)
+                    InvitationId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -143,13 +143,13 @@ namespace Proletarians.Data.Migrations
                         column: x => x.InvitationId,
                         principalTable: "Invitations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_InvitationProfiles_Profiles_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,7 +158,7 @@ namespace Proletarians.Data.Migrations
                 {
                     InvitationId = table.Column<Guid>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
-                    Reason = table.Column<string>(nullable: false)
+                    Reason = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,7 +176,7 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    EventId = table.Column<Guid>(nullable: false)
+                    EventId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -188,7 +188,7 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    EventId = table.Column<Guid>(nullable: false)
+                    EventId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -200,7 +200,7 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    EventId = table.Column<Guid>(nullable: false)
+                    EventId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -212,11 +212,11 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    RequestId = table.Column<Guid>(nullable: false),
+                    RequestId = table.Column<Guid>(nullable: true),
                     State = table.Column<int>(nullable: false),
-                    EventId = table.Column<Guid>(nullable: false),
-                    OperatorId = table.Column<Guid>(nullable: false),
-                    Comment = table.Column<string>(nullable: false)
+                    EventId = table.Column<Guid>(nullable: true),
+                    OperatorId = table.Column<Guid>(nullable: true),
+                    Comment = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -228,8 +228,8 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    InvitationProfileId = table.Column<Guid>(nullable: false),
-                    CallerId = table.Column<Guid>(nullable: false),
+                    InvitationProfileId = table.Column<Guid>(nullable: true),
+                    CallerId = table.Column<Guid>(nullable: true),
                     Result = table.Column<int>(nullable: false),
                     Discription = table.Column<string>(nullable: true)
                 },
@@ -241,7 +241,7 @@ namespace Proletarians.Data.Migrations
                         column: x => x.InvitationProfileId,
                         principalTable: "InvitationProfiles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -251,8 +251,8 @@ namespace Proletarians.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Interval_From = table.Column<DateTime>(nullable: true),
                     Interval_To = table.Column<DateTime>(nullable: true),
-                    LocationId = table.Column<Guid>(nullable: false),
-                    ResponsibleId = table.Column<Guid>(nullable: false),
+                    LocationId = table.Column<Guid>(nullable: true),
+                    ResponsibleId = table.Column<Guid>(nullable: true),
                     OutreachId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -263,7 +263,7 @@ namespace Proletarians.Data.Migrations
                         column: x => x.LocationId,
                         principalTable: "Locations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OutreachGroups_Outreachs_OutreachId",
                         column: x => x.OutreachId,
@@ -277,7 +277,7 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    PersonId = table.Column<Guid>(nullable: false),
+                    PersonId = table.Column<Guid>(nullable: true),
                     State = table.Column<int>(nullable: false),
                     OutreachGroupId = table.Column<Guid>(nullable: true)
                 },
@@ -295,7 +295,7 @@ namespace Proletarians.Data.Migrations
                         column: x => x.PersonId,
                         principalTable: "Profiles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -303,7 +303,7 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    ProfileId = table.Column<Guid>(nullable: false),
+                    ProfileId = table.Column<Guid>(nullable: true),
                     State = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -314,7 +314,7 @@ namespace Proletarians.Data.Migrations
                         column: x => x.ProfileId,
                         principalTable: "OrganizationProfiles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -324,7 +324,7 @@ namespace Proletarians.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Interval_From = table.Column<DateTime>(nullable: true),
                     Interval_To = table.Column<DateTime>(nullable: true),
-                    CandidateId = table.Column<Guid>(nullable: false)
+                    CandidateId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -334,7 +334,7 @@ namespace Proletarians.Data.Migrations
                         column: x => x.CandidateId,
                         principalTable: "OrganizationProfiles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -342,8 +342,8 @@ namespace Proletarians.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    OrganizerId = table.Column<Guid>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    OrganizerId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -353,7 +353,7 @@ namespace Proletarians.Data.Migrations
                         column: x => x.OrganizerId,
                         principalTable: "OrganizationProfiles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -387,7 +387,7 @@ namespace Proletarians.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     EventType = table.Column<int>(nullable: false),
-                    ResponsrbleFieldId = table.Column<Guid>(nullable: false)
+                    ResponsrbleFieldId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -397,8 +397,33 @@ namespace Proletarians.Data.Migrations
                         column: x => x.ResponsrbleFieldId,
                         principalTable: "ResponsrbleFields",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Locations",
+                columns: new[] { "Id", "Discription", "Name" },
+                values: new object[] { new Guid("d69c5900-8f59-49de-8cbf-f3444bf58b39"), null, "Политех" });
+
+            migrationBuilder.InsertData(
+                table: "Locations",
+                columns: new[] { "Id", "Discription", "Name" },
+                values: new object[] { new Guid("c06dea75-2535-44cd-b0eb-b661d61a8276"), null, "Мужесво" });
+
+            migrationBuilder.InsertData(
+                table: "Locations",
+                columns: new[] { "Id", "Discription", "Name" },
+                values: new object[] { new Guid("c8d75d8c-a9c1-4265-910a-c395928a1682"), null, "Девяткино" });
+
+            migrationBuilder.InsertData(
+                table: "Periods",
+                columns: new[] { "Id", "Finish", "Start" },
+                values: new object[] { new Guid("9e8b1df0-993b-47ef-9a14-99c1469d37c7"), new DateTime(2019, 1, 7, 20, 19, 13, 92, DateTimeKind.Local).AddTicks(1136), new DateTime(2018, 12, 7, 20, 19, 13, 90, DateTimeKind.Local).AddTicks(2304) });
+
+            migrationBuilder.InsertData(
+                table: "Profiles",
+                columns: new[] { "Id", "AdditionalInformations", "AgeCategoryId", "Alias", "FirstName", "LastName", "MiddleName", "OrganizationStatus", "ParticipantStatus", "Relation", "SotialStatus", "Acquaintance_Discription", "Acquaintance_LocationId", "Acquaintance_PeriodId" },
+                values: new object[] { new Guid("50ae9655-27c5-456f-8f4e-4a6e949a2f44"), null, null, null, "Олег", "Крузенштейн", "Леонидович", 0, 0, 0, 0, null, new Guid("c06dea75-2535-44cd-b0eb-b661d61a8276"), new Guid("9e8b1df0-993b-47ef-9a14-99c1469d37c7") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assigns_ResponsrbleFieldId",
@@ -536,7 +561,7 @@ namespace Proletarians.Data.Migrations
                 column: "EventId",
                 principalTable: "Events",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Invitations_Events_EventId",
@@ -544,7 +569,7 @@ namespace Proletarians.Data.Migrations
                 column: "EventId",
                 principalTable: "Events",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Invitations_Events_TargetId",
@@ -552,7 +577,7 @@ namespace Proletarians.Data.Migrations
                 column: "TargetId",
                 principalTable: "Events",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Lectures_Events_EventId",
@@ -560,7 +585,7 @@ namespace Proletarians.Data.Migrations
                 column: "EventId",
                 principalTable: "Events",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Meetings_Events_EventId",
@@ -568,7 +593,7 @@ namespace Proletarians.Data.Migrations
                 column: "EventId",
                 principalTable: "Events",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Outreachs_Events_EventId",
@@ -576,7 +601,7 @@ namespace Proletarians.Data.Migrations
                 column: "EventId",
                 principalTable: "Events",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_RequestResults_Events_EventId",
@@ -584,7 +609,7 @@ namespace Proletarians.Data.Migrations
                 column: "EventId",
                 principalTable: "Events",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_RequestResults_OrganizationProfiles_OperatorId",
@@ -592,7 +617,7 @@ namespace Proletarians.Data.Migrations
                 column: "OperatorId",
                 principalTable: "OrganizationProfiles",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_RequestResults_Requests_RequestId",
@@ -600,7 +625,7 @@ namespace Proletarians.Data.Migrations
                 column: "RequestId",
                 principalTable: "Requests",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_InvitationProfileResults_OrganizationProfiles_CallerId",
@@ -608,7 +633,7 @@ namespace Proletarians.Data.Migrations
                 column: "CallerId",
                 principalTable: "OrganizationProfiles",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_OutreachGroups_OrganizationProfiles_ResponsibleId",
@@ -616,7 +641,7 @@ namespace Proletarians.Data.Migrations
                 column: "ResponsibleId",
                 principalTable: "OrganizationProfiles",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

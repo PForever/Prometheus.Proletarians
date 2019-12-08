@@ -9,8 +9,8 @@ using Proletarians.Data;
 namespace Proletarians.Data.Migrations
 {
     [DbContext(typeof(PrometheusContext))]
-    [Migration("20191202203323_Initialize")]
-    partial class Initialize
+    [Migration("20191207171913_initialize")]
+    partial class initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,6 @@ namespace Proletarians.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("To")
@@ -60,7 +59,7 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("EventId")
+                    b.Property<Guid?>("EventId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -82,7 +81,7 @@ namespace Proletarians.Data.Migrations
                     b.Property<int>("EventType")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("ResponsrbleFieldId")
+                    b.Property<Guid?>("ResponsrbleFieldId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -98,10 +97,10 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("EventId")
+                    b.Property<Guid?>("EventId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("TargetId")
+                    b.Property<Guid?>("TargetId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -119,10 +118,10 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("InvitationId")
+                    b.Property<Guid?>("InvitationId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("PersonId")
+                    b.Property<Guid?>("PersonId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Round")
@@ -143,13 +142,13 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("CallerId")
+                    b.Property<Guid?>("CallerId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Discription")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("InvitationProfileId")
+                    b.Property<Guid?>("InvitationProfileId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Result")
@@ -170,7 +169,7 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("EventId")
+                    b.Property<Guid?>("EventId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -190,12 +189,28 @@ namespace Proletarians.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d69c5900-8f59-49de-8cbf-f3444bf58b39"),
+                            Name = "Политех"
+                        },
+                        new
+                        {
+                            Id = new Guid("c06dea75-2535-44cd-b0eb-b661d61a8276"),
+                            Name = "Мужесво"
+                        },
+                        new
+                        {
+                            Id = new Guid("c8d75d8c-a9c1-4265-910a-c395928a1682"),
+                            Name = "Девяткино"
+                        });
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.Manager", b =>
@@ -204,7 +219,7 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ProfileId")
+                    b.Property<Guid?>("ProfileId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("State")
@@ -223,7 +238,7 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("EventId")
+                    b.Property<Guid?>("EventId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -242,7 +257,7 @@ namespace Proletarians.Data.Migrations
                     b.Property<Guid?>("OutreachGroupId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("PersonId")
+                    b.Property<Guid?>("PersonId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("State")
@@ -263,7 +278,7 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("EventId")
+                    b.Property<Guid?>("EventId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -279,13 +294,13 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("LocationId")
+                    b.Property<Guid?>("LocationId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("OutreachId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ResponsibleId")
+                    b.Property<Guid?>("ResponsibleId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -314,6 +329,14 @@ namespace Proletarians.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Periods");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e8b1df0-993b-47ef-9a14-99c1469d37c7"),
+                            Finish = new DateTime(2019, 1, 7, 20, 19, 13, 92, DateTimeKind.Local).AddTicks(1136),
+                            Start = new DateTime(2018, 12, 7, 20, 19, 13, 90, DateTimeKind.Local).AddTicks(2304)
+                        });
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.Profile", b =>
@@ -332,7 +355,6 @@ namespace Proletarians.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
@@ -358,6 +380,19 @@ namespace Proletarians.Data.Migrations
                     b.HasIndex("AgeCategoryId");
 
                     b.ToTable("Profiles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("50ae9655-27c5-456f-8f4e-4a6e949a2f44"),
+                            FirstName = "Олег",
+                            LastName = "Крузенштейн",
+                            MiddleName = "Леонидович",
+                            OrganizationStatus = 0,
+                            ParticipantStatus = 0,
+                            Relation = 0,
+                            SotialStatus = 0
+                        });
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.Request", b =>
@@ -366,7 +401,7 @@ namespace Proletarians.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("CandidateId")
+                    b.Property<Guid?>("CandidateId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -383,16 +418,15 @@ namespace Proletarians.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("EventId")
+                    b.Property<Guid?>("EventId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("OperatorId")
+                    b.Property<Guid?>("OperatorId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("RequestId")
+                    b.Property<Guid?>("RequestId")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("State")
@@ -416,10 +450,9 @@ namespace Proletarians.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("OrganizerId")
+                    b.Property<Guid?>("OrganizerId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -448,33 +481,25 @@ namespace Proletarians.Data.Migrations
                 {
                     b.HasOne("Proletarians.Data.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.Event", b =>
                 {
                     b.HasOne("Proletarians.Data.Models.ResponsrbleField", "ResponsrbleField")
                         .WithMany()
-                        .HasForeignKey("ResponsrbleFieldId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ResponsrbleFieldId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.Invitation", b =>
                 {
                     b.HasOne("Proletarians.Data.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventId");
 
                     b.HasOne("Proletarians.Data.Models.Event", "Target")
                         .WithMany()
-                        .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TargetId");
 
                     b.OwnsOne("Proletarians.Data.Models.ReasonForCall", "ReasonForCall", b1 =>
                         {
@@ -485,7 +510,6 @@ namespace Proletarians.Data.Migrations
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("Reason")
-                                .IsRequired()
                                 .HasColumnType("TEXT");
 
                             b1.HasKey("InvitationId");
@@ -501,57 +525,43 @@ namespace Proletarians.Data.Migrations
                 {
                     b.HasOne("Proletarians.Data.Models.Invitation", "Invitation")
                         .WithMany("InvitationProfiles")
-                        .HasForeignKey("InvitationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InvitationId");
 
                     b.HasOne("Proletarians.Data.Models.Profile", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.InvitationProfileResult", b =>
                 {
                     b.HasOne("Proletarians.Data.Models.OrganizationProfile", "Caller")
                         .WithMany()
-                        .HasForeignKey("CallerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CallerId");
 
                     b.HasOne("Proletarians.Data.Models.InvitationProfile", "InvitationProfile")
                         .WithMany()
-                        .HasForeignKey("InvitationProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InvitationProfileId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.Lecture", b =>
                 {
                     b.HasOne("Proletarians.Data.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.Manager", b =>
                 {
                     b.HasOne("Proletarians.Data.Models.OrganizationProfile", "Profile")
                         .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProfileId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.Meeting", b =>
                 {
                     b.HasOne("Proletarians.Data.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.OrganizationProfile", b =>
@@ -562,27 +572,21 @@ namespace Proletarians.Data.Migrations
 
                     b.HasOne("Proletarians.Data.Models.Profile", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PersonId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.Outreach", b =>
                 {
                     b.HasOne("Proletarians.Data.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.OutreachGroup", b =>
                 {
                     b.HasOne("Proletarians.Data.Models.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LocationId");
 
                     b.HasOne("Proletarians.Data.Models.Outreach", null)
                         .WithMany("Groups")
@@ -590,9 +594,7 @@ namespace Proletarians.Data.Migrations
 
                     b.HasOne("Proletarians.Data.Models.OrganizationProfile", "Responsible")
                         .WithMany()
-                        .HasForeignKey("ResponsibleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ResponsibleId");
 
                     b.OwnsOne("Proletarians.Data.Models.Interval", "Interval", b1 =>
                         {
@@ -631,7 +633,7 @@ namespace Proletarians.Data.Migrations
                             b1.Property<Guid?>("LocationId")
                                 .HasColumnType("TEXT");
 
-                            b1.Property<Guid>("PeriodId")
+                            b1.Property<Guid?>("PeriodId")
                                 .HasColumnType("TEXT");
 
                             b1.HasKey("ProfileId");
@@ -648,12 +650,18 @@ namespace Proletarians.Data.Migrations
 
                             b1.HasOne("Proletarians.Data.Models.Period", "Period")
                                 .WithMany()
-                                .HasForeignKey("PeriodId")
-                                .OnDelete(DeleteBehavior.Cascade)
-                                .IsRequired();
+                                .HasForeignKey("PeriodId");
 
                             b1.WithOwner()
                                 .HasForeignKey("ProfileId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    ProfileId = new Guid("50ae9655-27c5-456f-8f4e-4a6e949a2f44"),
+                                    LocationId = new Guid("c06dea75-2535-44cd-b0eb-b661d61a8276"),
+                                    PeriodId = new Guid("9e8b1df0-993b-47ef-9a14-99c1469d37c7")
+                                });
                         });
 
                     b.OwnsOne("Proletarians.Data.Models.Contacts", "Contacts", b1 =>
@@ -682,7 +690,7 @@ namespace Proletarians.Data.Migrations
                                     b2.Property<string>("Country")
                                         .HasColumnType("TEXT");
 
-                                    b2.Property<int?>("PostIndex")
+                                    b2.Property<int>("PostIndex")
                                         .HasColumnType("INTEGER");
 
                                     b2.Property<string>("Region")
@@ -708,11 +716,9 @@ namespace Proletarians.Data.Migrations
                                         .HasColumnType("TEXT");
 
                                     b2.Property<string>("Alias")
-                                        .IsRequired()
                                         .HasColumnType("TEXT");
 
                                     b2.Property<string>("Host")
-                                        .IsRequired()
                                         .HasColumnType("TEXT");
 
                                     b2.HasKey("ContactsProfileId");
@@ -751,9 +757,7 @@ namespace Proletarians.Data.Migrations
                 {
                     b.HasOne("Proletarians.Data.Models.OrganizationProfile", "Candidate")
                         .WithMany()
-                        .HasForeignKey("CandidateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CandidateId");
 
                     b.OwnsOne("Proletarians.Data.Models.Interval", "Interval", b1 =>
                         {
@@ -779,30 +783,22 @@ namespace Proletarians.Data.Migrations
                 {
                     b.HasOne("Proletarians.Data.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EventId");
 
                     b.HasOne("Proletarians.Data.Models.OrganizationProfile", "Operator")
                         .WithMany()
-                        .HasForeignKey("OperatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OperatorId");
 
                     b.HasOne("Proletarians.Data.Models.Request", "Request")
                         .WithMany()
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RequestId");
                 });
 
             modelBuilder.Entity("Proletarians.Data.Models.ResponsrbleField", b =>
                 {
                     b.HasOne("Proletarians.Data.Models.OrganizationProfile", "Organizer")
                         .WithMany()
-                        .HasForeignKey("OrganizerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrganizerId");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,6 +15,9 @@
             <MenuItem Header="Обзвон" >
                 <MenuItem Header="Спискок обзвона" Click="OnInvationPrifiles"></MenuItem>
             </MenuItem>
+            <MenuItem Header="Списки">
+                <MenuItem Header="Люди" Click="MenuItem_Click"/>
+            </MenuItem>
         </Menu>
         <DockPanel Grid.Column="1" Grid.Row="1">
             <Frame x:Name="_mainFrame" NavigationUIVisibility="Visible" Source=""/>

@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29319.158
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proletarians.Data", "Proletarians.Data\Proletarians.Data.csproj", "{8C29BF9E-4E8F-4FDB-8BB5-EB12DF88E12A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prometheus.Proletarians", "Prometheus.Proletarians\Prometheus.Proletarians.csproj", "{F41B003F-50F2-4E0A-9C81-7436E2C36BCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prometheus.Proletarians.Avalonia", "Prometheus.Proletarians.Avalonia\Prometheus.Proletarians.Avalonia.csproj", "{4F5C9BAD-5043-495E-A435-B8FB27EFD7D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prometheus.Proletarians.Avalonia", "Prometheus.Proletarians.Avalonia\Prometheus.Proletarians.Avalonia.csproj", "{4F5C9BAD-5043-495E-A435-B8FB27EFD7D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prometheus.Proletarians.WpfCore", "Prometheus.Proletarians.WpfCore\Prometheus.Proletarians.WpfCore.csproj", "{3499D5BE-20C2-4F51-BA77-6A04DC9BCB5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prometheus.Proletarians.WpfCore", "Prometheus.Proletarians.WpfCore\Prometheus.Proletarians.WpfCore.csproj", "{3499D5BE-20C2-4F51-BA77-6A04DC9BCB5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prometheus.Infrastructure", "Prometheus.Infrastructure\Prometheus.Infrastructure.csproj", "{1D1C404A-15B8-495A-871F-2F69336609EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{8C29BF9E-4E8F-4FDB-8BB5-EB12DF88E12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C29BF9E-4E8F-4FDB-8BB5-EB12DF88E12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C29BF9E-4E8F-4FDB-8BB5-EB12DF88E12A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F41B003F-50F2-4E0A-9C81-7436E2C36BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F41B003F-50F2-4E0A-9C81-7436E2C36BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F41B003F-50F2-4E0A-9C81-7436E2C36BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F41B003F-50F2-4E0A-9C81-7436E2C36BCF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F5C9BAD-5043-495E-A435-B8FB27EFD7D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F5C9BAD-5043-495E-A435-B8FB27EFD7D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F5C9BAD-5043-495E-A435-B8FB27EFD7D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{3499D5BE-20C2-4F51-BA77-6A04DC9BCB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3499D5BE-20C2-4F51-BA77-6A04DC9BCB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3499D5BE-20C2-4F51-BA77-6A04DC9BCB5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D1C404A-15B8-495A-871F-2F69336609EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D1C404A-15B8-495A-871F-2F69336609EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D1C404A-15B8-495A-871F-2F69336609EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D1C404A-15B8-495A-871F-2F69336609EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

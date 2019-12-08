@@ -90,12 +90,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Proletarians.Data\Proletarians.Data.csproj">
-      <Project>{8c29bf9e-4e8f-4fdb-8bb5-eb12df88e12a}</Project>
-      <Name>Proletarians.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
