@@ -31,45 +31,6 @@ namespace Prometheus.Proletarians.WpfCore
         }
     }
 
-    //public class InnerPeriod
-    //{
-    //    public Guid Id { get; set; }
-    //    [InnerNotify(NotifyAlso = "Id")]
-    //    public DateTime Start { get; set; }
-    //    [InnerNotify(NotifyAlso = "Id")]
-    //    public DateTime Finish { get; set; }
-
-    //    public override string ToString() => $"{Start:dd MMM yy} - {Finish:dd MMM yy}";
-    //}
-
-    //[AttributeUsage(AttributeTargets.Property)]
-    //[Injection(typeof(InnerNotifyAspect))]
-    //public class InnerNotify : Attribute
-    //{
-    //    public string NotifyAlso { get; set; }
-    //}
-
-
-    //[Mixin(typeof(INotifyPropertyChanged))]
-    //[Aspect(Scope.PerInstance)]
-    //public class InnerNotifyAspect : INotifyPropertyChanged
-    //{
-    //    public event PropertyChangedEventHandler PropertyChanged = (s, e) => { };
-
-    //    [Advice(Kind.After, Targets = Target.Public | Target.Setter)]
-    //    public void AfterSetter(
-    //        [Argument(Source.Instance)] object source,
-    //        [Argument(Source.Name)] string propName,
-    //        [Argument(Source.Injections)] Attribute[] injections
-    //        )
-    //    {
-    //        PropertyChanged(source, new PropertyChangedEventArgs(propName));
-
-    //        foreach (var i in injections.OfType<InnerNotify>().ToArray())
-    //            PropertyChanged(source, new PropertyChangedEventArgs(i.NotifyAlso));
-    //    }
-    //}
-
     public class StringToPhoneConverter : MarkupExtension, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -77,31 +38,47 @@ namespace Prometheus.Proletarians.WpfCore
             if (targetType != typeof(string)) return Binding.DoNothing;
 
             if (!(value is PhoneNumber phone)) return string.Empty;
+            _instance = value as PhoneNumber;
             return phone.ToString();
         }
-
+        //private object[] _result = new object[2];
+        private PhoneNumber _instance;
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType != typeof(PhoneNumber)) return Binding.DoNothing;
-            if (!(value is string phone)) return string.Empty;
-
+            if (targetType != typeof(PhoneNumber) || !(value is string phone))
+            {
+                return SetResult(Binding.DoNothing);
+            }
             var phoneNo = Regex.Replace(phone, @"[^\d]", "").AsSpan() is var res && res.Length > 0 && res[0] == '7' ? res.Slice(1) : res;// phone.Replace("(", string.Empty).Replace(")", string.Empty).Replace(" ", string.Empty).Replace("-", string.Empty);
-
+            var result = _instance ?? new PhoneNumber(0, 0, 0);
             switch (phoneNo.Length)
             {
                 case 0:
-                    return new PhoneNumber { ContryCode = 7 };
+                    return SetResult(result, p => p.ContryCode = 7);
                 case var l when l < 4:
-                    return new PhoneNumber { ContryCode = 7, RegionCode = int.Parse(phoneNo) };
-                case var l when l < 11:
-                    return new PhoneNumber { ContryCode = 7, RegionCode = int.Parse(phoneNo.Slice(0, 3)), Number = int.Parse(phoneNo.Slice(3)) };
-                //case 10:
-                //    return new PhoneNumber { ContryCode = int.Parse(phoneNo.AsSpan().Slice(0, 1)), RegionCode = int.Parse(phoneNo.AsSpan().Slice(1, 3)), Number = int.Parse(phoneNo.AsSpan().Slice(4)) };
+                {
+                    int regionCode = int.Parse(phoneNo);
+                    return SetResult(result, p => p.ContryCode = 7, p => p.RegionCode = regionCode);
+                }
+                //case var l when l < 11:
                 default:
-                    return Binding.DoNothing;
+                {
+                    int regionCode = int.Parse(phoneNo.Slice(0, 3));
+                    int number = int.Parse(phoneNo.Slice(3));
+                    return SetResult(result, p => p.ContryCode = 7, p => p.RegionCode = regionCode, p => p.Number = number);
+                }
+                //default:
+                //    return Binding.DoNothing;
             }
         }
 
+        private object SetResult<T>(T value, params Action<T>[] actions)
+        {
+            foreach (var action in actions) action(value);
+            //_result[0] = value;
+            //_result[1] = value;
+            return value;
+        }
         public override object ProvideValue(IServiceProvider serviceProvider) => this;
     }
 }

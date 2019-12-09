@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proletarians.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,8 +26,9 @@ namespace Prometheus.Proletarians.WpfCore
         }
         private void OnPreviewPhoneChanged(object sender, TextCompositionEventArgs e)
         {
-            if(e.Text is var phone && int.TryParse(phone, out int _))
+            if(e.Text is var phone && int.TryParse(phone, out int _) && e.Source is TextBox tb && tb.Text.Length is var len && len <= 17)
             {
+                tb.CaretIndex = len;
             }
             else
             {
@@ -47,6 +49,11 @@ namespace Prometheus.Proletarians.WpfCore
                 default:
                     return phone;
             }
+        }
+
+        private void OnAddNewProfile(object sender, AddingNewItemEventArgs e)
+        {
+            e.NewItem = new Profile { Contacts = new Contacts { } };
         }
     }
 }

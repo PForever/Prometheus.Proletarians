@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Prometheus.Proletarians.WpfCore"
       xmlns:vm="clr-namespace:Prometheus.Proletarians.WpfCore"
       xmlns:col="clr-namespace:System.Collections;assembly=System.Collections.NonGeneric"
+      xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Profiles">
@@ -19,9 +20,10 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Profiles}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Profiles}" AutoGenerateColumns="False" CanUserAddRows="True" AddingNewItem="OnAddNewProfile">
             <DataGrid.Resources>
                 <local:StringToPhoneConverter x:Key="_phoneConverter"/>
+                <DataErrorValidationRule x:Key="_dataError"/>
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
@@ -32,11 +34,39 @@
                 <DataGridTemplateColumn Header="Телефон">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Contacts.Phone, NotifyOnValidationError=true, ValidatesOnExceptions=true, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource _phoneConverter}}" PreviewTextInput="OnPreviewPhoneChanged"/>
+                            <!--Text="{Binding Contacts.Phone,
+                                UpdateSourceTrigger=PropertyChanged,
+                                Converter={StaticResource _phoneConverter}}"-->
+                            <TextBox PreviewTextInput="OnPreviewPhoneChanged">
+                                <TextBox.Text>
+                                    <Binding Path="Contacts.Phone" UpdateSourceTrigger="PropertyChanged" ConverterParameter="Contacts.Phone" Converter="{StaticResource _phoneConverter}">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn> 
+                <DataGridTemplateColumn Header="Email">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--Text="{Binding Contacts.Phone,
+                                UpdateSourceTrigger=PropertyChanged,
+                                Converter={StaticResource _phoneConverter}}"-->
+                            <tk:MaskedTextBox Mask="+7(000)000-00-00">
+                                <tk:MaskedTextBox.Text>
+                                    <Binding Path="Contacts.Email.Name" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <DataErrorValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </tk:MaskedTextBox.Text>
+                            </tk:MaskedTextBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Email" Binding="{Binding Contacts.Email}"/>
                 <DataGridTextColumn Header="Адрес" Binding="{Binding Contacts.Address}"/>
                 <DataGridTemplateColumn Header="Когда" >
                     <DataGridTemplateColumn.CellTemplate>
