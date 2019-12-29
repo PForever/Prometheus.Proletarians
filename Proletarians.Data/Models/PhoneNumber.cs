@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 namespace Proletarians.Data.Models
 {
     [Owned]
-    public class PhoneNumber : IDataErrorInfo
+    public class PhoneNumber : //IDataErrorInfo
     {
         
         private int _contryCode;
@@ -63,16 +63,16 @@ namespace Proletarians.Data.Models
             Number = number;
         }
 
-        [NotMapped]
-        public string Error => string.Join(Environment.NewLine, _validationErrorMessaged.Values.Where(m => !string.IsNullOrEmpty(m)));
+        //[NotMapped]
+        //public string Error => string.Join(Environment.NewLine, _validationErrorMessaged.Values.Where(m => !string.IsNullOrEmpty(m)));
 
-        public string this[string columnName] => columnName switch
-        {
-            nameof(ContryCode) when !ValidateCountryCode(ContryCode) => $"Неверный код страны {ContryCode}",
-            nameof(RegionCode) when !ValidateRegionCode(RegionCode) => $"Неверный код региона {RegionCode}",
-            nameof(Number) when !ValidateNumber(Number) => $"Неверный код номер {Number}",
-            _ => String.Empty
-        };
+        //public string this[string columnName] => columnName switch
+        //{
+        //    nameof(ContryCode) when !ValidateCountryCode(ContryCode) => $"Неверный код страны {ContryCode}",
+        //    nameof(RegionCode) when !ValidateRegionCode(RegionCode) => $"Неверный код региона {RegionCode}",
+        //    nameof(Number) when !ValidateNumber(Number) => $"Неверный код номер {Number}",
+        //    _ => String.Empty
+        //};
 
         public override string ToString() => $"+{ContryCode}{FormatReionCode(RegionCode)}{FormatNumber(Number)}";
         private string FormatReionCode(int regionCode) => regionCode switch

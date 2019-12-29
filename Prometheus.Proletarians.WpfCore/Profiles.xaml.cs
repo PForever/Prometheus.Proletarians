@@ -36,24 +36,13 @@ namespace Prometheus.Proletarians.WpfCore
             }
         }
 
-        private static string ToMask(string phone)
-        {
-            switch (phone.Length)
-            {
-                case 7:
-                    return Regex.Replace(phone, @"(\d{3})(\d{4})", "$1-$2");
-                case 10:
-                    return Regex.Replace(phone, @"(\d{3})(\d{3})(\d{4})", "($1) $2-$3");
-                case 11:
-                    return Regex.Replace(phone, @"(\d{1})(\d{3})(\d{3})(\d{4})", "$1-$2-$3-$4");
-                default:
-                    return phone;
-            }
-        }
-
         private void OnAddNewProfile(object sender, AddingNewItemEventArgs e)
         {
             e.NewItem = new Profile { Contacts = new Contacts { } };
+        }
+
+        private void OnPhoneChanged(object sender, TextChangedEventArgs e)
+        {
         }
     }
 }

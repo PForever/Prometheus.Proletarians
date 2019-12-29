@@ -14,6 +14,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.WindowsDesktop.App" Version="3.0.0-preview8-28405-07" />
     <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.4.0.1" />
+    <PackageReference Include="MvvmLightStd10" Version="5.4.1.2" />
   </ItemGroup>
 
   <ItemGroup>
