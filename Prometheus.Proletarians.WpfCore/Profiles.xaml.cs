@@ -24,17 +24,17 @@ namespace Prometheus.Proletarians.WpfCore
         {
             InitializeComponent();
         }
-        private void OnPreviewPhoneChanged(object sender, TextCompositionEventArgs e)
-        {
-            if(e.Text is var phone && int.TryParse(phone, out int _) && e.Source is TextBox tb && tb.Text.Length is var len && len <= 17)
-            {
-                tb.CaretIndex = len;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
+        //private void OnPreviewPhoneChanged(object sender, TextCompositionEventArgs e)
+        //{
+        //    if(e.Text is var phone && int.TryParse(phone, out int _) && e.Source is TextBox tb && tb.Text.Length is var len && len <= 17)
+        //    {
+        //        tb.CaretIndex = len;
+        //    }
+        //    else
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
 
         private void OnAddNewProfile(object sender, AddingNewItemEventArgs e)
         {

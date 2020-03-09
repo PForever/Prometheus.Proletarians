@@ -1,12 +1,15 @@
 ﻿using AspectInjector.Broker;
+using DynamicData;
 using GalaSoft.MvvmLight;
 using Microsoft.EntityFrameworkCore;
 using Proletarians.Data;
 using Proletarians.Data.Models;
 using Prometheus.Proletarians.WpfCore.Help;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using ReactiveUI.Validation.Abstractions;
 using ReactiveUI.Validation.Contexts;
+using ReactiveUI.Validation.Extensions;
 using ReactiveUI.Validation.Helpers;
 using System;
 using System.Collections.Generic;
@@ -14,26 +17,56 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
+using DynamicData.Binding;
+using FluentValidation;
+using Prometheus.Infrastructure;
 
 namespace Prometheus.Proletarians.WpfCore
 {
-    class ProfilesVo : BaseVm
+    class ProfilesVo : BaseVo<ProfilesVo>
     {
-        public ObservableCollection<Profile> Profiles { get; set; }
+        private IObservableCollection<Profile> _profiles;
+
+        //private ReadOnlyObservableCollection<Profile> _notValidProfiles;
+        //internal IChangeSet<Profile> ProfilesChangeSet { [ObservableAsProperty] get; }
+        public IObservableCollection<Profile> Profiles
+        {
+            get => _profiles;
+            set => RiseAndSubscribeIfChanged(ref _profiles, value);
+        }
+
         public ObservableCollection<Location> Locations { get; set; }
         public ObservableCollection<Period> Periods { get; set; }
-        public ProfilesVo()
+        public ProfilesVo() : base(new ProfilesVoValidator())
         {
             using var context = new PrometheusContext();
-            Locations = new ObservableCollection<Location>(context.Locations);
-            var t = new Period();
-            Periods = new ObservableCollection<Period>(context.Periods);
-            Profiles = new ObservableCollection<Profile>(context.Profiles.Include(p => p.AgeCategory).Include(p => p.Acquaintance.Location).Include(p => p.Acquaintance.Period).ToList());
+            Locations = new ObservableCollectionExtended<Location>(context.Locations);
+            Periods = new ObservableCollectionExtended<Period>(context.Periods);
+            Profiles = new ObservableCollectionExtended<Profile>(context.Profiles);
+            //var list = new SourceList<Profile>();
+            //list.AddRange(context.Profiles.Include(p => p.AgeCategory).Include(p => p.Acquaintance.Location).Include(p => p.Acquaintance.Period).ToList());
+            //list.Connect()
+            //    .ObserveOn(RxApp.MainThreadScheduler)
+            //    .Bind(out _profiles)
+            //    .AutoRefresh(p => p.ValidationResult/*.IsValid*/, TimeSpan.FromMilliseconds(300))
+            //    .Filter(p => !p.ValidationResult.IsValid)
+            //    .Bind(out _notValidProfiles)
+            //    .ToPropertyEx(this, x => x.ProfilesChangeSet);
+        }
+    }
+
+    class ProfilesVoValidator : AbstractValidator<ProfilesVo>
+    {
+        public ProfilesVoValidator()
+        {
+            //RuleFor(x => x.ProfilesChangeSet).Empty().WithMessage("Существуют некорректные профили");
+            RuleForEach(x => x.Profiles).SetValidator(new InnerValidator());
         }
     }
     public class ContactException : Exception
@@ -62,17 +95,18 @@ namespace Prometheus.Proletarians.WpfCore
         {
             if (targetType != typeof(PhoneNumber) || !(value is string phone))
             {
+                return null;
                 throw new ArgumentException("Некорректный номер");
                 return SetResult(Binding.DoNothing);
             }
             var ph = _replace.Replace(phone, "");
             var groups = _regex.Match(ph).Groups;
-            var country = int.TryParse(groups["country"].Value, out int r) ? r : -1;
-            var region = int.TryParse(groups["region"].Value, out r) ? r : -1;
-            var number = int.TryParse(groups["number"].Value, out r) ? r : -1;
-            var result = _instance ??= new PhoneNumber(0, 0, 0);
+            var country = int.TryParse(groups["country"].Value, out int r) ? r : default(int?);
+            var region = int.TryParse(groups["region"].Value, out r) ? r : default(int?);
+            var number = int.TryParse(groups["number"].Value, out r) ? r : default(int?);
+            var result = _instance ??= new PhoneNumber(country, region, number);
 
-            return SetResult(result, p => p.ContryCode = country, p => p.RegionCode = region, p => p.Number = number);
+            return result;
 
             //var phoneNo = Regex.Replace(phone, @"[^\d]", "").AsSpan() is var res && res.Length > 0 && res[0] == '7' ? res.Slice(1) : res;// phone.Replace("(", string.Empty).Replace(")", string.Empty).Replace(" ", string.Empty).Replace("-", string.Empty);
             //var result = _instance ?? new PhoneNumber(0, 0, 0);
@@ -108,10 +142,6 @@ namespace Prometheus.Proletarians.WpfCore
         //        }
         //    }
         //}
-
-        class MyClass : ReactiveValidationObject<MyClass>//ReactiveObject, IValidatableViewModel//ViewModelBase
-        {
-        }
 
         private object SetResult<T>(T value, params Action<T>[] actions)
         {

@@ -1,6 +1,8 @@
 ﻿using System;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Logging.Serilog;
+using Avalonia.ReactiveUI;
 using Prometheus.Proletarians.Avalonia.ViewModels;
 using Prometheus.Proletarians.Avalonia.Views;
 

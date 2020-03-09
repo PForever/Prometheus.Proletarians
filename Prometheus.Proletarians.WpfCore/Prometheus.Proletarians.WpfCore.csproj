@@ -2,19 +2,24 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="aspectinjector" Version="2.2.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.1">
+    <PackageReference Include="aspectinjector" Version="2.3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.WindowsDesktop.App" Version="3.0.0-preview8-28405-07" />
-    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.4.0.1" />
+    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
     <PackageReference Include="MvvmLightStd10" Version="5.4.1.2" />
+    <PackageReference Include="reactiveui" Version="11.2.3" />
+    <PackageReference Include="reactiveui.fody" Version="11.2.3" />
+    <PackageReference Include="reactiveui.validation" Version="1.4.10" />
+    <PackageReference Include="reactiveui.wpf" Version="11.2.3" />
+    <PackageReference Include="system.reactive" Version="4.3.2" />
   </ItemGroup>
 
   <ItemGroup>

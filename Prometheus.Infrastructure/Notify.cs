@@ -15,7 +15,7 @@ namespace Prometheus.Infrastructure
 
     [Mixin(typeof(INotifyPropertyChanged))]
     [Aspect(Scope.PerInstance)]
-    internal class NotifyAspect : INotifyPropertyChanged
+    public class NotifyAspect : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = (s, e) => { };
 
@@ -23,7 +23,7 @@ namespace Prometheus.Infrastructure
         public void AfterSetter(
             [Argument(Source.Instance)] object source,
             [Argument(Source.Name)] string propName,
-            [Argument(Source.Injections)] Attribute[] injections
+            [Argument(Source.Triggers)] Attribute[] injections
             )
         {
             PropertyChanged(source, new PropertyChangedEventArgs(propName));

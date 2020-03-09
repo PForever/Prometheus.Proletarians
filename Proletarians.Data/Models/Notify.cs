@@ -14,7 +14,7 @@ namespace Proletarians.Data.Models
     }
     [Mixin(typeof(INotifyPropertyChanged))]
     [Aspect(Scope.PerInstance)]
-    internal class NotifyAspect : INotifyPropertyChanged
+    public class NotifyAspect : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = (s, e) => { };
 
