@@ -37,7 +37,12 @@ namespace Proletarians.Data.Models
             set => RiseAndSubscribeIfChanged(ref _address, value);
         }
 
-        public Contacts() : base(new ContactsValidator()) { }
+        public Contacts() : base(new ContactsValidator())
+        {
+            Phone = new PhoneNumber();
+            Email = new Email();
+            Address = new Address();
+        }
     }
     class ContactsValidator : AbstractValidator<Contacts>
     {

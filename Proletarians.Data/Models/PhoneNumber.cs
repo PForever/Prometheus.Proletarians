@@ -46,7 +46,7 @@ namespace Proletarians.Data.Models
             RegionCode = regionCode;
             Number = number;
         }
-        protected PhoneNumber() : base(new PhoneNumberValidator()) { }
+        public PhoneNumber() : base(new PhoneNumberValidator()) { }
         public override string ToString() => $"{ContryCode}{RegionCode}{Number}";
     }
 

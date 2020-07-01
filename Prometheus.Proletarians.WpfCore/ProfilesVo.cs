@@ -84,11 +84,11 @@ namespace Prometheus.Proletarians.WpfCore
             //if (targetType != typeof(string)) return Binding.DoNothing;
 
             if (!(value is PhoneNumber phone)) return string.Empty;
-            _instance = value as PhoneNumber;
-            return phone.ToString();
+            //_instance = value as PhoneNumber;
+            return $"{phone.RegionCode}{phone.Number}";
         }
         //private object[] _result = new object[2];
-        private PhoneNumber _instance;
+        //private PhoneNumber _instance;
         private static Regex _regex = new Regex(@"\+(?<country>\d*)\((?<region>\d*)\)(?<number>\d*)");
         private static Regex _replace = new Regex(@"[-|_]");
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -104,7 +104,7 @@ namespace Prometheus.Proletarians.WpfCore
             var country = int.TryParse(groups["country"].Value, out int r) ? r : default(int?);
             var region = int.TryParse(groups["region"].Value, out r) ? r : default(int?);
             var number = int.TryParse(groups["number"].Value, out r) ? r : default(int?);
-            var result = _instance ??= new PhoneNumber(country, region, number);
+            var result = /*_instance ??= */new PhoneNumber(country, region, number);
 
             return result;
 

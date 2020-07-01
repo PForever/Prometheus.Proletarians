@@ -37,7 +37,9 @@ namespace Proletarians.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.UsePropertyAccessMode(PropertyAccessMode.Property);
             modelBuilder.Entity<Assign>().HasKey(sc => new { sc.ManagerId, sc.ResponsrbleFieldId });
+            //modelBuilder.Entity<Profile>().Property(p => p.FirstName)
             modelBuilder.Entity<Profile>().OwnsOne(p => p.Acquaintance).HasData(
                 new { ProfileId = new Guid("50AE9655-27C5-456F-8F4E-4A6E949A2F44"), LocationId = new Guid("C06DEA75-2535-44CD-B0EB-B661D61A8276"), PeriodId = new Guid("9E8B1DF0-993B-47EF-9A14-99C1469D37C7") });
             modelBuilder.Entity<Profile>().HasData(

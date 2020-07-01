@@ -130,6 +130,7 @@ namespace Prometheus.Infrastructure
             {
                 _subscribedProperty[property].Dispose();
                 _subscribedProperty.Remove(property);
+                Revalidate();
             }
         }
 

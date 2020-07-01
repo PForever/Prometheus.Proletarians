@@ -1,0 +1,19 @@
+﻿<Window x:Class="ControlTester.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ControlTester"
+        xmlns:ac="clr-namespace:AddControls;assembly=AddControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Border Padding="100" Background="Red">
+            <ac:PopupForPeople IsOpen="True" AllowDrop="True" MinWidth="200">
+                    <Border BorderBrush="LightBlue" BorderThickness="2" Background="White">
+                        <TextBlock>IACONTROL</TextBlock>
+                    </Border>
+            </ac:PopupForPeople>
+        </Border>
+    </Grid>
+</Window>

@@ -15,7 +15,7 @@ namespace Proletarians.Data.Models
             Alias = alias;
             Host = host;
         }
-        protected Email() : base(new EmailValidator())
+        public Email() : base(new EmailValidator())
         {
         }
     }

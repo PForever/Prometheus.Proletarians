@@ -8,17 +8,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Prometheus.Proletarians.WpfCore
 {
     /// <summary>
-    /// Interaction logic for Profile2.xaml
+    /// Interaction logic for Address.xaml
     /// </summary>
-    public partial class Profile2 : Page
+    public partial class Address : Window
     {
-        public Profile2()
+        public Address()
         {
             InitializeComponent();
         }
